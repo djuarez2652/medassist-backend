@@ -4,6 +4,7 @@ import pandas as pd
 import requests
 import spacy
 import torch
+import os
 import torch.nn.functional as F
 from fastapi import FastAPI
 from fastapi.responses import JSONResponse
@@ -27,7 +28,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-data_file = "./DiseaseAndSymptoms.csv"
+base_dir = os.path.dirname(os.path.abspath(__file__))
+
+# Construct the path to the CSV file
+data_file = os.path.join(base_dir, "DiseaseAndSymptoms.csv")
 
 # pre-trained SBERT model
 model = SentenceTransformer('all-MiniLM-L6-v2')
@@ -42,8 +46,7 @@ class Symptoms(BaseModel):
 
 def setup():
     print('creating model')
-    df = pd.read_csv(
-        "./DiseaseAndSymptoms.csv")
+    df = pd.read_csv(data_file)
 
     symptom_cols = ['Symptom_1', 'Symptom_2', 'Symptom_3', 'Symptom_4', 'Symptom_5', 'Symptom_6']
 
