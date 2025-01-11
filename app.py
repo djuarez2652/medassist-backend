@@ -123,7 +123,7 @@ def read_root():
 @app.post("/api/disease")
 def disease(symptoms: Symptoms):
 
-    res = requests.post("https://medassist-81j6.onrender.com/api/symptoms", json={"symptoms": symptoms.symptoms})
+    res = requests.post("https://medassist-backend-4ti2.onrender.com/api/symptoms", json={"symptoms": symptoms.symptoms})
     symptoms_json = res.json()
 
     new_model = disease_model
